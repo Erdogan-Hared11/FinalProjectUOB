@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products - Dalag Company</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    :root {
+      --primary: #3aaf2a;
+      --primary-dark: #2e8c21;
+      --primary-light: #e8f5e9;
+      --text-dark: #1a1a1a;
+      --text-light: #f8fff8;
+      --shadow: 0 5px 15px rgba(0,0,0,0.1);
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--text-light);
+      color: var(--text-dark);
+      line-height: 1.6;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin: 30px 0;
+      color: var(--primary-dark);
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      animation: slideDown 0.8s ease-out 0.3s forwards;
+    }
+
+    @keyframes slideDown {
+      from { transform: translate(-50%, -20px); opacity: 0; }
+      to { transform: translate(-50%, 0); opacity: 1; }
+    }
+
+    h3::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), transparent);
+      border-radius: 3px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out 0.5s forwards;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .overveiw {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin: 40px 0;
+      align-items: center;
+    }
+
+    .over-img {
+      flex: 1 1 400px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transform: translateX(-20px);
+      opacity: 0;
+      animation: slideIn 0.8s ease-out 0.4s forwards;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(-20px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .over-img img {
+      max-width: 100%;
+      height: auto;
+      transition: var(--transition);
+    }
+
+    .over-img:hover img {
+      transform: scale(1.05);
+    }
+
+    .over-tit {
+      flex: 1 1 400px;
+      margin-bottom: 20px;
+    }
+
+    .product-Bari {
+      padding: 20px 0;
+    }
+
+    .Bari-Products {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 30px 0;
+    }
+
+    .Bari-Product {
+      background: white;
+      border-radius: 15px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+      transform: translateY(30px);
+      opacity: 0;
+    }
+
+    .Bari-Product:nth-child(1) { animation: fadeInUp 0.8s ease-out 0.6s forwards; }
+    .Bari-Product:nth-child(2) { animation: fadeInUp 0.8s ease-out 0.8s forwards; }
+    .Bari-Product:nth-child(3) { animation: fadeInUp 0.8s ease-out 1s forwards; }
+    .Bari-Product:nth-child(4) { animation: fadeInUp 0.8s ease-out 1.2s forwards; }
+    .Bari-Product:nth-child(5) { animation: fadeInUp 0.8s ease-out 1.4s forwards; }
+    .Bari-Product:nth-child(6) { animation: fadeInUp 0.8s ease-out 1.6s forwards; }
+
+    .Bari-Product:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(90, 176, 90, 0.2);
+    }
+
+    .Bari-Product img {
+      width: 100%;
+      border-radius: 15px 15px 0 0;
+      object-fit: cover;
+      height: 220px;
+      transition: var(--transition);
+    }
+
+    .Bari-Product:hover img {
+      transform: scale(1.03);
+    }
+
+    .Bari .info {
+      display: flex;
+      flex-direction: row;
+      gap: 15px;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 20px;
+      color: var(--primary-dark);
+    }
+
+    .Bari .info div {
+      flex: 1;
+    }
+
+    button {
+      padding: 15px 0;
+      border: none;
+      border-radius: 0 0 15px 15px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      color: white;
+      letter-spacing: 0.05em;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      letter-spacing: 0.1em;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    button::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%);
+      transform-origin: 50% 50%;
+    }
+
+    button:focus:not(:active)::after {
+      animation: ripple 1s ease-out;
+    }
+
+    @keyframes ripple {
+      0% { transform: scale(0, 0); opacity: 1; }
+      20% { transform: scale(25, 25); opacity: 1; }
+      100% { opacity: 0; transform: scale(40, 40); }
+    }
+
+    /* Floating elements */
+    .floating-elements {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .floating-element {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0.15;
+      animation: float 10s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+
+    /* Loading spinner */
+    .loader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+      grid-column: 1/-1;
+    }
+
+    .loader i {
+      font-size: 3rem;
+      color: var(--primary);
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Error message */
+    .error-message {
+      grid-column: 1/-1;
+      text-align: center;
+      padding: 40px;
+      color: #d32f2f;
+      font-size: 1.2rem;
+    }
+
+    .error-message i {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      h3 {
+        font-size: 1.6rem;
+      }
+
+      .Bari-Products {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .Bari-Product img {
+        height: 180px;
+      }
+
+      .Bari .info {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h3 {
+        font-size: 1.4rem;
+      }
+
+      .over-img, .over-tit {
+        flex: 1 1 100%;
+      }
+
+      .Bari-Products {
+        grid-template-columns: 1fr;
+      }
+
+      button {
+        padding: 12px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="floating-elements" id="floatingElements"></div>
+  
+  <div class="container">
+    <div class="overveiw">
+      <div class="over-img">
+        <img src="sawiro/logo.jpg" alt="Dalag Company Logo">
+      </div>
+      <div class="over-tit">
+        <h3>Products of Bari region</h3>
+        <p>
+          The Bari region in Somalia is an important area for agricultural production. The region has large stretches of
+          land suitable for growing various crops such as maize, rice, sesame, and vegetables. The hot climate supports
+          the cultivation of these crops, and farming is mainly done on both small and large farms. Most farmers rely on
+          traditional farming methods. In addition to crop farming, livestock rearing is also common, linking
+          agriculture and animal husbandry in the region.
+          Overall, agricultural production in Bari plays a key role in the livelihood of the local people and
+          contributes to the region's economy.
+        </p>
+      </div>
+    </div>
+
+    <div class="Bari-Products" id="product-container">
+      <div class="loader">
+        <i class="fas fa-spinner"></i>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Create floating elements
+    function createFloatingElements() {
+      const container = document.getElementById('floatingElements');
+      const elements = ['🌱', '🌾', '🍅', '🌽', '🍋', '🥕', '🍇', '🥦'];
+      
+      for (let i = 0; i < 12; i++) {
+        const element = document.createElement('div');
+        element.className = 'floating-element';
+        element.textContent = elements[Math.floor(Math.random() * elements.length)];
+        element.style.left = Math.random() * 100 + 'vw';
+        element.style.top = Math.random() * 100 + 'vh';
+        element.style.fontSize = (Math.random() * 20 + 15) + 'px';
+        element.style.animationDuration = (Math.random() * 15 + 5) + 's';
+        element.style.animationDelay = (Math.random() * 5) + 's';
+        container.appendChild(element);
+      }
+    }
+
+    // Format product data
+    function formatProduct(product) {
+      // Handle missing image
+      const imageUrl = product.image_url 
+        ? `/uploads/${product.image_url}`
+        : 'https://via.placeholder.com/300x200?text=Product+Image';
+      
+      // Handle missing fields
+      const name = product.name || 'Unnamed Product';
+      const status = product.status || 'Unknown';
+      const address = product.address || 'Not specified';
+      const weight = product.weight || 'N/A';
+      
+      return {
+        imageUrl,
+        name,
+        status,
+        address,
+        weight
+      };
+    }
+
+    // Load products from API
+    async function loadProducts() {
+      const container = document.getElementById('product-container');
+      
+      try {
+        const response = await fetch('http://localhost:3000/products');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        
+        const products = await response.json();
+        
+        if (!Array.isArray(products)) {
+          throw new Error("Invalid data format: expected array.");
+        }
+        
+        if (products.length === 0) {
+          container.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #577d4f;">
+              <i class="fas fa-exclamation-circle" style="font-size: 3rem;"></i>
+              <h3>No products available</h3>
+              <p>Please check back later</p>
+            </div>
+          `;
+          return;
+        }
+        
+        container.innerHTML = products.map((product, index) => {
+          const { imageUrl, name, status, address, weight } = formatProduct(product);
+          
+          return `
+            <div class="Bari-Product" style="animation-delay: ${0.6 + index * 0.2}s">
+              <img src="${imageUrl}" alt="${name}" loading="lazy" 
+                   onerror="this.src='https://via.placeholder.com/300x200?text=Product+Image';this.onerror=null;">
+              <div class="Bari">
+                <div class="info">
+                  <div>
+                    <strong>${name}</strong><br>
+                    Status: ${status}
+                  </div>
+                  <div>
+                    Address: ${address}<br>
+                    Weight: ${weight}
+                  </div>
+                </div>
+              </div>
+              <button onclick="window.location.href='shopping.html'">
+                <i class="fas fa-shopping-cart"></i> Go to Shopping
+              </button>
+            </div>
+          `;
+        }).join('');
+        
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        container.innerHTML = `
+          <div class="error-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h3>Failed to load products</h3>
+            <p>${error.message || 'Please try again later'}</p>
+          </div>
+        `;
+      }
+    }
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', () => {
+      createFloatingElements();
+      loadProducts();
+    });
+  </script>
+</body>
+</html>

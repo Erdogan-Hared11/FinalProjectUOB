@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <title>About Dalag Company</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #3aaf2a;
+            --primary-dark: #2e8c21;
+            --text-dark: #333;
+            --text-light: #777;
+            --bg-light: #f9f9f9;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 0;
+            animation: fadeIn 1s ease-out;
+        }
+
+        h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary-dark);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+            border-radius: 3px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: slideUp 1s ease-out forwards;
+        }
+
+        .overveiw {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .over-img {
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transform: translateX(-20px);
+            opacity: 0;
+            animation: slideIn 1s ease-out 0.3s forwards;
+        }
+
+        .over-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+            border-radius: 20px;
+        }
+
+        .over-img:hover img {
+            transform: scale(1.05);
+        }
+
+        .over-tit {
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 1s ease-out 0.6s forwards;
+        }
+
+        .comp {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .company {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            transform: translateY(30px);
+            opacity: 0;
+        }
+
+        .company:nth-child(1) { animation: slideUp 0.8s ease-out 0.3s forwards; }
+        .company:nth-child(2) { animation: slideUp 0.8s ease-out 0.5s forwards; }
+        .company:nth-child(3) { animation: slideUp 0.8s ease-out 0.7s forwards; }
+        .company:nth-child(4) { animation: slideUp 0.8s ease-out 0.9s forwards; }
+
+        .company:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .company img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .company:hover img {
+            transform: scale(1.1);
+        }
+
+        .company p {
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            opacity: 1;
+            animation: none;
+        }
+
+        /* Floating elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.2;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .overveiw {
+                grid-template-columns: 1fr;
+            }
+
+            .over-img {
+                order: -1;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .comp {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .comp {
+                grid-template-columns: 1fr;
+            }
+
+            h3 {
+                font-size: 1.8rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="floating-elements" id="floatingElements"></div>
+    
+    <div class="container">
+        <div class="overveiw">
+            <div class="over-img">
+                <img src="sawiro/logo.jpg" alt="Dalag Company Logo">
+            </div>
+            <div class="over-tit">
+                <h3>Our Company</h3>
+                <p>Dalag Company is a modern enterprise dedicated to directly connecting Somali farmers with consumers, eliminating unnecessary middlemen. Its mission is to ensure farmers get fair market access while consumers receive high-quality produce straight from the source.</p>
+                <p>The company uses technology to simplify communication, marketing, and distribution of agricultural products. It also offers technical support, training, and market guidance to boost productivity and income.</p>
+                <p>Dalag Company – Empowering today's farmers, connecting to tomorrow's market.</p>
+            </div>
+        </div>
+        
+        <div>
+            <h3>Company Partners</h3>
+        </div>
+        
+        <div class="comp">
+            <div class="company">
+                <img src="uploads/beer.jpg" alt="Doolcadale">
+                <p>Doolcadale</p>
+            </div>
+            <div class="company">
+                <img src="uploads/beer.jpg" alt="Dhod hoose">
+                <p>Dhod hoose</p>
+            </div>
+            <div class="company">
+                <img src="uploads/beer.jpg" alt="Ufeyn sare">
+                <p>Ufeyn sare</p>
+            </div>
+            <div class="company">
+                <img src="uploads/beer.jpg" alt="Midigle Ceeldahir">
+                <p>Midigle Ceeldahir</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating elements
+        function createFloatingElements() {
+            const container = document.getElementById('floatingElements');
+            const elements = ['🌱', '🌾', '🍅', '🌽', '🍋', '🥕', '🍇', '🥦', '🍎', '🍌'];
+            
+            for (let i = 0; i < 15; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.textContent = elements[Math.floor(Math.random() * elements.length)];
+                element.style.left = Math.random() * 100 + 'vw';
+                element.style.top = Math.random() * 100 + 'vh';
+                element.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                element.style.animationDuration = (Math.random() * 15 + 5) + 's';
+                element.style.animationDelay = (Math.random() * 5) + 's';
+                container.appendChild(element);
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            createFloatingElements();
+            
+            // Add hover effect to company cards
+            const companies = document.querySelectorAll('.company');
+            companies.forEach(company => {
+                company.addEventListener('mouseenter', () => {
+                    company.querySelector('img').style.transform = 'scale(1.1)';
+                });
+                company.addEventListener('mouseleave', () => {
+                    company.querySelector('img').style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

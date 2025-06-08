@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agriculture Products</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+    :root {
+      --primary: #18da12;
+      --primary-dark: #14b20f;
+      --primary-light: #e0ffe0;
+      --text-dark: #333;
+      --text-light: #fff;
+      --shadow: 0 4px 15px rgba(0,0,0,0.1);
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      line-height: 1.6;
+      background-color: #f9f9f9;
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 85%;
+      margin: 0 auto;
+      animation: fadeIn 1s ease-out;
+    }
+
+    /* Header Styles */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .menu {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 100px;
+      padding: 0 20px;
+      border-radius: 20px;
+      position: relative;
+    }
+
+    .menu-tit {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      transition: var(--transition);
+    }
+
+    .menu-tit:hover {
+      transform: scale(1.05);
+    }
+
+    .menu-tit i {
+      color: var(--primary);
+      font-size: 2.5rem;
+      animation: pulse 2s infinite;
+    }
+
+    .menu-tit h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(to right, var(--primary), #007bff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .menu-link {
+      display: flex;
+      gap: 30px;
+    }
+
+    .menu-link a {
+      position: relative;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+      padding: 8px 0;
+      transition: var(--transition);
+    }
+
+    .menu-link a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+
+    .menu-link a:hover {
+      color: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .menu-link a:hover::after {
+      width: 100%;
+    }
+
+    /* Burger Menu */
+    .burger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 6px;
+      z-index: 101;
+      padding: 10px;
+    }
+
+    .burger .line {
+      width: 30px;
+      height: 3px;
+      background-color: var(--primary);
+      transition: var(--transition);
+      transform-origin: center;
+    }
+
+    .burger.active .line:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+    }
+
+    .burger.active .line:nth-child(2) {
+      opacity: 0;
+    }
+
+    .burger.active .line:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+    }
+
+    /* Hero Section */
+    main #home {
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("sawiro/hea.avif") center/cover no-repeat;
+      width: 100%;
+      height: 70vh;
+      margin: 30px 0;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      animation: zoomIn 8s infinite alternate;
+    }
+
+    .home-title {
+      text-align: center;
+      color: var(--text-light);
+      padding: 20px;
+      z-index: 2;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: slideUp 1s ease-out 0.3s forwards;
+    }
+
+    .home-title h2 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .home-title p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      max-width: 600px;
+      margin: 0 auto 30px;
+    }
+
+    .home-title button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .home-title button:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+
+    /* Gallery Section */
+    #gallery {
+      margin: 80px 0;
+    }
+
+    .gallery-title {
+      text-align: center;
+      margin-bottom: 40px;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: slideUp 1s ease-out 0.6s forwards;
+    }
+
+    .gallery-title h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--primary-dark);
+    }
+
+    .gallery-title p {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transform: scale(0.95);
+      opacity: 0;
+      animation: zoomIn 1s ease-out 0.9s forwards;
+    }
+
+    video {
+      width: 100%;
+      display: block;
+      transition: var(--transition);
+    }
+
+    video:hover {
+      transform: scale(1.02);
+    }
+
+    /* Floating Elements */
+    .floating-elements {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .floating-element {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0.7;
+      animation: float 8s infinite ease-in-out;
+    }
+
+    /* Footer */
+    .footer {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border-radius: 20px;
+      color: white;
+      padding: 40px 0;
+      margin-top: 60px;
+      box-shadow: var(--shadow);
+    }
+
+    .footer-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: auto;
+      padding: 0 20px;
+    }
+
+    .footer-section {
+      flex: 1;
+      min-width: 250px;
+      margin: 15px;
+      transform: translateY(20px);
+      opacity: 0;
+    }
+
+    .footer-section:nth-child(1) {
+      animation: slideUp 1s ease-out 0.3s forwards;
+    }
+
+    .footer-section:nth-child(2) {
+      animation: slideUp 1s ease-out 0.6s forwards;
+    }
+
+    .footer-section h3 {
+      border-bottom: 2px solid rgba(255,255,255,0.3);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+
+    .footer-section p, .footer-section a {
+      margin: 10px 0;
+      display: block;
+      color: rgba(255,255,255,0.9);
+      transition: var(--transition);
+    }
+
+    .footer-section a:hover {
+      color: white;
+      transform: translateX(5px);
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section ul li {
+      margin: 15px 0;
+    }
+
+    .footer-section ul li a {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-section ul li a i {
+      font-size: 0.8rem;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+
+    @keyframes backgroundZoom {
+      0% { background-size: 100%; }
+      100% { background-size: 110%; }
+    }
+
+    /* Responsive Styling */
+    @media (max-width: 992px) {
+      .container {
+        width: 90%;
+      }
+
+      .home-title h2 {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .menu-link {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 70%;
+        height: 100vh;
+        background-color: white;
+        flex-direction: column;
+        gap: 30px;
+        align-items: center;
+        padding: 100px 0 40px;
+        box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+        transition: var(--transition);
+        z-index: 100;
+      }
+
+      .menu-link.active {
+        left: 0;
+      }
+
+      .menu-link a {
+        font-size: 1.2rem;
+        padding: 10px 20px;
+      }
+
+      .burger {
+        display: flex;
+      }
+
+      #home {
+        height: 60vh;
+        margin: 20px 0;
+      }
+
+      .home-title h2 {
+        font-size: 2rem;
+      }
+
+      .home-title p {
+        font-size: 1rem;
+      }
+
+      .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .footer-section {
+        min-width: 100%;
+      }
+
+      .footer-section h3 {
+        border-bottom: 2px solid rgba(255,255,255,0.3);
+        display: inline-block;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .menu-tit h2 {
+        font-size: 1.5rem;
+      }
+
+      .home-title h2 {
+        font-size: 1.8rem;
+      }
+
+      .gallery-title h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div class="menu">
+        <div class="menu-tit">
+          <i class="fa-solid fa-leaf"></i>
+          <h2>Dalag Company</h2>
+        </div>
+
+        <div class="burger" id="burger">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+
+        <div class="menu-link" id="navLinks">
+          <a href="#home"><i class="fas fa-home"></i> Home</a>
+          <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+          <a href="#shopping"><i class="fas fa-shopping-cart"></i> Shopping</a>
+          <a href="#products"><i class="fas fa-seedling"></i> Products</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="home">
+        <div class="floating-elements" id="floatingElements"></div>
+        <div class="home-title">
+          <h2>Welcome to Dalag Product</h2>
+          <p>Explore our high-quality products for your agricultural needs.</p>
+          <button id="about">Learn More</button>
+        </div>
+      </section>
+
+      <section id="gallery">
+        <div class="gallery-title">
+          <h2>Gallery</h2>
+          <p>Check out our products and farms in action.</p>
+        </div>
+        <div class="video-container">
+          <video width="100%" autoplay muted loop>
+            <source src="sawiro/fruit/gallery.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" style="width: 100%;">
+      <div class="footer-container">
+        <div class="footer-section contact-us">
+          <h3>Contact Us</h3>
+          <p><i class="fas fa-phone"></i> +252 0906990070</p>
+          <p><i class="fas fa-envelope"></i> <a href="mailto:Dalag@gmail.com">Dalag@gmail.com</a></p>
+          <p><i class="fas fa-map-marker-alt"></i> Bosaaso, Puntland, Somalia</p>
+        </div>
+        <div class="footer-section links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+            <li><a href="#about"><i class="fas fa-chevron-right"></i> About</a></li>
+            <li><a href="#supplier"><i class="fas fa-chevron-right"></i> Supplier</a></li>
+            <li><a href="#products"><i class="fas fa-chevron-right"></i> Products</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Mobile Menu Toggle
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('navLinks');
+
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+
+    // Close menu when clicking on a link
+    document.querySelectorAll('.menu-link a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          burger.classList.remove('active');
+          navLinks.classList.remove('active');
+        }
+      });
+    });
+
+    // Create floating elements
+    function createFloatingElements() {
+      const container = document.getElementById('floatingElements');
+      const elements = ['🌱', '🍎', '🌽', '🍓', '🍋', '🥕', '🍇', '🥦'];
+      
+      for (let i = 0; i < 12; i++) {
+        const element = document.createElement('div');
+        element.className = 'floating-element';
+        element.textContent = elements[Math.floor(Math.random() * elements.length)];
+        element.style.left = Math.random() * 100 + 'vw';
+        element.style.top = Math.random() * 100 + 'vh';
+        element.style.fontSize = (Math.random() * 20 + 15) + 'px';
+        element.style.animationDuration = (Math.random() * 10 + 5) + 's';
+        element.style.animationDelay = (Math.random() * 5) + 's';
+        container.appendChild(element);
+      }
+    }
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Initialize animations
+    document.addEventListener('DOMContentLoaded', () => {
+      createFloatingElements();
+      
+      // Add hover effect to menu title
+      const menuTit = document.querySelector('.menu-tit');
+      menuTit.addEventListener('mouseenter', () => {
+        menuTit.style.transform = 'scale(1.05)';
+      });
+      menuTit.addEventListener('mouseleave', () => {
+        menuTit.style.transform = 'scale(1)';
+      });
+      
+      // Add click effect to buttons
+      const buttons = document.querySelectorAll('button');
+      buttons.forEach(button => {
+        button.addEventListener('mousedown', () => {
+          button.style.transform = 'scale(0.95)';
+        });
+        button.addEventListener('mouseup', () => {
+          button.style.transform = 'scale(1)';
+        });
+        button.addEventListener('mouseleave', () => {
+          button.style.transform = 'scale(1)';
+        });
+      });
+    });
+
+    // Animation for hero background
+    const homeSection = document.getElementById('home');
+    setInterval(() => {
+      homeSection.style.animation = 'backgroundZoom 8s infinite alternate';
+    }, 8000);
+    // home.js
+document.getElementById("burger").addEventListener("click", function () {
+  document.getElementById("navLinks").classList.toggle("active");
+});
+document.addEventListener("DOMContentLoaded", function () {
+  const links = document.querySelectorAll(".menu-link a");
+
+  links.forEach(link => {
+    link.addEventListener("click", function (event) {
+      event.preventDefault(); // Prevents default anchor behavior
+
+      const target = link.getAttribute("href").substring(1); // e.g., Home
+      const url = target.toLowerCase() + ".html"; // e.g., home.html
+
+      if (url === "about.html") {
+        // Soo laabashada bogga About isla tab-ka
+        window.location.href = url; // Opens in the same tab
+      } else {
+        // Haddii kale, bogagga kale isla tab-ka ku furan
+        window.location.href = url; // Opens in the same tab for other pages
+      }
+    });
+  });
+});
+
+  </script>
+</body>
+</html>
