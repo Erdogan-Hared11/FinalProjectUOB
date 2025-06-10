@@ -362,7 +362,7 @@ app.post('/orders/update-status', async (req, res) => {
 
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
     console.log(`Server wuxuu ku shaqeynayaa http://localhost:${PORT}`);
 });
