@@ -1,0 +1,21 @@
+{
+  "name": "finalprojectuob",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Erdogan-Hared11/FinalProjectUOB.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Erdogan-Hared11/FinalProjectUOB/issues"
+  },
+  "homepage": "https://github.com/Erdogan-Hared11/FinalProjectUOB#readme",
+  "description": ""
+}
