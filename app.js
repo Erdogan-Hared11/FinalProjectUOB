@@ -1,5 +1,5 @@
 require('dotenv').config();
-const express = require('express');
+
 const mysql = require('mysql2/promise');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
@@ -9,9 +9,10 @@ const path = require('path');
 const fs = require('fs');
 const helmet = require('helmet');
 const morgan = require('morgan');
-const PORT = process.env.PORT || 3000;
 
+const express = require('express');
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 app.use(helmet());
 app.disable('x-powered-by');
