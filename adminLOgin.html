@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login - Dalag</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2ed52e;
+      --primary-dark: #026302;
+      --primary-light: #e8f5e9;
+      --error: #ff3333;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: URL('./uploads/james-baltz-jAt6cN6zl8M-unsplash.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    
+    .login-container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 2.5rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 450px;
+      text-align: center;
+    }
+    
+    .logo {
+      margin-bottom: 2rem;
+    }
+    
+    .logo i {
+      color: var(--primary);
+      font-size: 3.5rem;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    h2 {
+      color: var(--primary-dark);
+      margin-top: 0.5rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    
+    input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(46, 213, 46, 0.2);
+    }
+    
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .error {
+      color: var(--error);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      display: none;
+    }
+    
+    .note {
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 1.5rem;
+      background: #f8f8f8;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="logo">
+      <i class="fa-solid fa-leaf"></i>
+      <h2>Dalag Admin</h2>
+    </div>
+    
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter admin username" required>
+        <div class="error" id="usernameError"></div>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter password" required>
+        <div class="error" id="passwordError"></div>
+      </div>
+      
+      <button type="submit" class="btn">
+        <i class="fas fa-sign-in-alt"></i> Login
+      </button>
+      
+      <!-- <div class="note">
+        <strong>Default Admin Credentials (for development only):</strong><br>
+        Username: <code>admin</code><br>
+        Password: <code>dalag@2024</code>
+      </div> -->
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const usernameError = document.getElementById('usernameError');
+      const passwordError = document.getElementById('passwordError');
+      
+      // Reset errors
+      usernameError.style.display = 'none';
+      passwordError.style.display = 'none';
+      
+      // Default admin credentials (for development only)
+      const ADMIN_CREDENTIALS = {
+        username: 'Abdiasis Hared',
+        password: 'dalag@2024'
+      };
+      
+      // Simple validation
+      if (!username) {
+        usernameError.textContent = 'Username is required';
+        usernameError.style.display = 'block';
+        return;
+      }
+      
+      if (!password) {
+        passwordError.textContent = 'Password is required';
+        passwordError.style.display = 'block';
+        return;
+      }
+      
+      // Check credentials
+      if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+        // Successful login - in a real app, you would:
+        // 1. Get a token from your backend API
+        // 2. Store it securely
+        // 3. Redirect to dashboard
+        
+        alert('Login successful! Redirecting to dashboard...');
+        window.location.href = 'admin-dashboard.html';
+      } else {
+        passwordError.textContent = 'Invalid username or password';
+        passwordError.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
