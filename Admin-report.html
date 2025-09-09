@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Dalag</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2ed52e;
+      --primary-dark: #026302;
+      --primary-light: #e8f5e9;
+      --light-gray: #f5f5f5;
+      --text-dark: #333;
+      --shadow: 0 5px 15px rgba(0,0,0,0.1);
+      --transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      min-height: 100vh;
+      background-color: #f9f9f9;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      background: white;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      z-index: 100;
+    }
+
+    .logo {
+      text-align: center;
+      padding: 20px 0;
+      border-bottom: 1px solid #eee;
+      transition: var(--transition);
+    }
+
+    .logo:hover {
+      transform: scale(1.02);
+    }
+
+    .logo i {
+      color: var(--primary);
+      font-size: 2.5rem;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .logo h2 {
+      margin-top: 10px;
+      font-size: 1.5rem;
+      color: var(--primary-dark);
+    }
+
+    .nav-menu {
+      margin-top: 30px;
+    }
+
+    .nav-item {
+      padding: 15px 25px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      transition: var(--transition);
+      margin: 5px 0;
+      border-left: 4px solid transparent;
+    }
+
+    .nav-item:hover {
+      background: var(--primary-light);
+      transform: translateX(5px);
+    }
+
+    .nav-item.active {
+      background: var(--primary-light);
+      border-left: 4px solid var(--primary);
+      font-weight: 600;
+    }
+
+    .nav-item i {
+      margin-right: 10px;
+      color: var(--primary);
+      font-size: 1.1rem;
+      transition: var(--transition);
+    }
+
+    .nav-item.active i {
+      transform: scale(1.2);
+    }
+
+    /* MAIN CONTENT */
+    .main {
+      padding: 30px;
+      background: var(--light-gray);
+    }
+
+    .section {
+      display: none;
+      animation: fadeInUp 0.5s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    h1 {
+      color: var(--primary-dark);
+      margin-bottom: 20px;
+      font-size: 2rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), transparent);
+      border-radius: 3px;
+    }
+
+    /* Dashboard Stats */
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      transition: var(--transition);
+      animation: slideUp 0.5s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: var(--primary);
+    }
+
+    .stat-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .users-icon {
+      background: linear-gradient(135deg, #4287f5, #2a5cb0);
+    }
+
+    .products-icon {
+      background: linear-gradient(135deg, #f54242, #b02a2a);
+    }
+
+    .reports-icon {
+      background: linear-gradient(135deg, #42f563, #2ab03d);
+    }
+
+    .stat-card h3 {
+      color: var(--text-dark);
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .stat-card p {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin: 0;
+    }
+
+    .stat-change {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      margin-top: 8px;
+    }
+
+    .change-up {
+      background: #e8f5e9;
+      color: #2ab03d;
+    }
+
+    .change-down {
+      background: #ffebee;
+      color: #f54242;
+    }
+
+    /* Progress Bars */
+    .progress-container {
+      margin-top: 20px;
+    }
+
+    .progress-title {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: #eee;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 1.5s ease-in-out;
+    }
+
+    .users-progress {
+      background: linear-gradient(90deg, #4287f5, #2a5cb0);
+    }
+
+    .products-progress {
+      background: linear-gradient(90deg, #f54242, #b02a2a);
+    }
+
+    .reports-progress {
+      background: linear-gradient(90deg, #42f563, #2ab03d);
+    }
+
+    /* Recent Activity */
+    .activity-container {
+      margin-top: 40px;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    .activity-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .activity-list {
+      list-style: none;
+    }
+
+    .activity-item {
+      display: flex;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+
+    .activity-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .activity-content {
+      flex-grow: 1;
+    }
+
+    .activity-content h4 {
+      margin-bottom: 5px;
+      color: var(--text-dark);
+    }
+
+    .activity-content p {
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+    .activity-time {
+      color: #999;
+      font-size: 0.8rem;
+      margin-top: 5px;
+    }
+
+    /* Floating elements */
+    .floating-elements {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .floating-element {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0.1;
+      animation: float 10s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+
+    /* Responsive styles */
+    @media (max-width: 992px) {
+      body {
+        grid-template-columns: 200px 1fr;
+      }
+      
+      .sidebar {
+        width: 200px;
+      }
+      
+      .nav-item {
+        padding: 12px 15px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        grid-template-columns: 1fr;
+      }
+      
+      .sidebar {
+        position: fixed;
+        width: 100%;
+        height: auto;
+        top: 0;
+        padding: 10px 0;
+      }
+      
+      .logo {
+        padding: 10px 0;
+      }
+      
+      .logo h2 {
+        display: none;
+      }
+      
+      .nav-menu {
+        display: flex;
+        overflow-x: auto;
+        margin-top: 10px;
+        padding: 0 10px;
+      }
+      
+      .nav-item {
+        flex-direction: column;
+        padding: 10px;
+        min-width: 80px;
+        text-align: center;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+      }
+      
+      .nav-item.active {
+        border-left: none;
+        border-bottom: 3px solid var(--primary);
+      }
+      
+      .nav-item span {
+        font-size: 0.8rem;
+        margin-top: 5px;
+      }
+      
+      .main {
+        margin-top: 80px;
+        padding: 15px;
+      }
+      
+      .stats-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stat-card p {
+        font-size: 1.8rem;
+      }
+      
+      .activity-item {
+        flex-direction: column;
+      }
+      
+      .activity-icon {
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="floating-elements" id="floatingElements"></div>
+  
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="logo">
+      <i class="fa-solid fa-leaf"></i>
+      <h2>Dalag Admin</h2>
+    </div>
+    <div class="nav-menu">
+      <div class="nav-item active" data-section="dashboard">
+        <i class="fa-solid fa-gauge"></i>
+        <span>Dashboard</span>
+      </div>
+      <div class="nav-item" data-section="users">
+        <i class="fa-solid fa-users"></i>
+        <span>Users</span>
+      </div>
+      <div class="nav-item" data-section="products">
+        <i class="fa-solid fa-box"></i>
+        <span>Products</span>
+      </div>
+      <div class="nav-item" data-section="reports">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Reports</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+    <!-- DASHBOARD SECTION -->
+    <div class="section active" id="dashboard">
+      <h1>Admin Dashboard</h1>
+      <p>Welcome to Dalag Admin Panel. Manage your users, products, and reports from here.</p>
+      
+      <!-- Stats Overview -->
+      <div class="stats-container">
+        <div class="stat-card" style="animation-delay: 0.1s">
+          <div class="stat-icon users-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3>Total Users</h3>
+          <p id="totalUsers">0</p>
+          <div class="stat-change change-up">
+            <i class="fas fa-arrow-up"></i> <span id="userChange">0%</span>
+          </div>
+        </div>
+        
+        <div class="stat-card" style="animation-delay: 0.2s">
+          <div class="stat-icon products-icon">
+            <i class="fas fa-box"></i>
+          </div>
+          <h3>Total Products</h3>
+          <p id="totalProducts">0</p>
+          <div class="stat-change change-up">
+            <i class="fas fa-arrow-up"></i> <span id="productChange">0%</span>
+          </div>
+        </div>
+        
+        <div class="stat-card" style="animation-delay: 0.3s">
+          <div class="stat-icon reports-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Total Reports</h3>
+          <p id="totalReports">0</p>
+          <div class="stat-change change-up">
+            <i class="fas fa-arrow-up"></i> <span id="reportChange">0%</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Progress Overview -->
+      <div class="stats-container">
+        <div class="stat-card">
+          <h3>User Growth</h3>
+          <div class="progress-container">
+            <div class="progress-title">
+              <span>Target: 1000 users</span>
+              <span id="userProgressValue">0%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill users-progress" id="userProgress" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <h3>Product Growth</h3>
+          <div class="progress-container">
+            <div class="progress-title">
+              <span>Target: 500 products</span>
+              <span id="productProgressValue">0%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill products-progress" id="productProgress" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <h3>Report Completion</h3>
+          <div class="progress-container">
+            <div class="progress-title">
+              <span>Target: 200 reports</span>
+              <span id="reportProgressValue">0%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill reports-progress" id="reportProgress" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Recent Activity -->
+      <div class="activity-container">
+        <div class="activity-header">
+          <h2>Recent Activity</h2>
+          <button class="submit-btn">
+            <i class="fas fa-sync-alt"></i> Refresh
+          </button>
+        </div>
+        
+        <ul class="activity-list" id="activityList">
+          <li class="activity-item">
+            <div class="activity-icon users-icon">
+              <i class="fas fa-user-plus"></i>
+            </div>
+            <div class="activity-content">
+              <h4>New User Registered</h4>
+              <p>John Doe joined the platform</p>
+              <div class="activity-time">2 minutes ago</div>
+            </div>
+          </li>
+          
+          <li class="activity-item">
+            <div class="activity-icon products-icon">
+              <i class="fas fa-cube"></i>
+            </div>
+            <div class="activity-content">
+              <h4>Product Added</h4>
+              <p>New product "Organic Tomatoes" was added to inventory</p>
+              <div class="activity-time">15 minutes ago</div>
+            </div>
+          </li>
+          
+          <li class="activity-item">
+            <div class="activity-icon reports-icon">
+              <i class="fas fa-chart-pie"></i>
+            </div>
+            <div class="activity-content">
+              <h4>Report Generated</h4>
+              <p>Monthly sales report was generated</p>
+              <div class="activity-time">1 hour ago</div>
+            </div>
+          </li>
+          
+          <li class="activity-item">
+            <div class="activity-icon users-icon">
+              <i class="fas fa-user-check"></i>
+            </div>
+            <div class="activity-content">
+              <h4>User Updated</h4>
+              <p>User profile for Jane Smith was updated</p>
+              <div class="activity-time">3 hours ago</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- USERS SECTION -->
+    <div class="section" id="users">
+      <h1>User Management</h1>
+      <button class="submit-btn">
+        <i class="fas fa-plus"></i> Add New User
+      </button>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>johndoe</td>
+            <td>john@example.com</td>
+            <td>Active</td>
+            <td>
+              <button class="action-btn edit-btn">
+                <i class="fas fa-edit"></i> Edit
+              </button>
+              <button class="action-btn delete-btn">
+                <i class="fas fa-trash"></i> Delete
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>janedoe</td>
+            <td>jane@example.com</td>
+            <td>Active</td>
+            <td>
+              <button class="action-btn edit-btn">
+                <i class="fas fa-edit"></i> Edit
+              </button>
+              <button class="action-btn delete-btn">
+                <i class="fas fa-trash"></i> Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PRODUCTS SECTION -->
+    <div class="section" id="products">
+      <h1>Product Management</h1>
+      <button class="submit-btn">
+        <i class="fas fa-plus"></i> Add Product
+      </button>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Organic Tomatoes</td>
+            <td>Vegetables</td>
+            <td>$4.99</td>
+            <td>125</td>
+            <td>
+              <button class="action-btn edit-btn">
+                <i class="fas fa-edit"></i> Edit
+              </button>
+              <button class="action-btn delete-btn">
+                <i class="fas fa-trash"></i> Delete
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Fresh Lettuce</td>
+            <td>Vegetables</td>
+            <td>$3.49</td>
+            <td>89</td>
+            <td>
+              <button class="action-btn edit-btn">
+                <i class="fas fa-edit"></i> Edit
+              </button>
+              <button class="action-btn delete-btn">
+                <i class="fas fa-trash"></i> Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- REPORTS SECTION -->
+    <div class="section" id="reports">
+      <h1>Reports</h1>
+      <button class="submit-btn">
+        <i class="fas fa-download"></i> Generate Report
+      </button>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Report Name</th>
+            <th>Date Generated</th>
+            <th>Type</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Monthly Sales Report</td>
+            <td>2023-10-01</td>
+            <td>Sales</td>
+            <td>
+              <button class="action-btn edit-btn">
+                <i class="fas fa-eye"></i> View
+              </button>
+              <button class="action-btn delete-btn">
+                <i class="fas fa-trash"></i> Delete
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>User Activity Report</td>
+            <td>2023-10-05</td>
+            <td>Users</td>
+            <td>
+              <button class="action-btn edit-btn">
+                <i class="fas fa-eye"></i> View
+              </button>
+              <button class="action-btn delete-btn">
+                <i class="fas fa-trash"></i> Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    // Create floating elements
+    function createFloatingElements() {
+      const container = document.getElementById('floatingElements');
+      const elements = ['🌱', '🌾', '🍅', '🌽', '🍋', '🥕', '🍇', '🥦'];
+      
+      for (let i = 0; i < 12; i++) {
+        const element = document.createElement('div');
+        element.className = 'floating-element';
+        element.textContent = elements[Math.floor(Math.random() * elements.length)];
+        element.style.left = Math.random() * 100 + 'vw';
+        element.style.top = Math.random() * 100 + 'vh';
+        element.style.fontSize = (Math.random() * 20 + 15) + 'px';
+        element.style.animationDuration = (Math.random() * 15 + 5) + 's';
+        element.style.animationDelay = (Math.random() * 5) + 's';
+        container.appendChild(element);
+      }
+    }
+
+    // Animate counting up
+    function animateValue(id, start, end, duration) {
+      const obj = document.getElementById(id);
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        obj.innerHTML = Math.floor(progress * (end - start) + start);
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+
+    // Animate progress bars
+    function animateProgress(id, value, target) {
+      const percentage = Math.min(100, Math.round((value / target) * 100));
+      const progressBar = document.getElementById(id);
+      const progressValue = document.getElementById(id + 'Value');
+      
+      setTimeout(() => {
+        progressBar.style.width = percentage + '%';
+        progressValue.textContent = percentage + '%';
+      }, 300);
+    }
+
+    // Load dashboard stats
+    function loadDashboardStats() {
+      // Simulate API call with setTimeout
+      setTimeout(() => {
+        // Mock data
+        const userCount = 542;
+        const productCount = 327;
+        const reportCount = 128;
+        
+        const userChange = 12.5;
+        const productChange = 8.3;
+        const reportChange = 5.7;
+        
+        // Animate the counting up
+        animateValue("totalUsers", 0, userCount, 1000);
+        animateValue("totalProducts", 0, productCount, 1000);
+        animateValue("totalReports", 0, reportCount, 1000);
+        
+        // Update change percentages
+        document.getElementById("userChange").textContent = userChange + '%';
+        document.getElementById("productChange").textContent = productChange + '%';
+        document.getElementById("reportChange").textContent = reportChange + '%';
+        
+        // Animate progress bars
+        animateProgress("userProgress", userCount, 1000);
+        animateProgress("productProgress", productCount, 500);
+        animateProgress("reportProgress", reportCount, 200);
+      }, 500);
+    }
+
+    // Switch between sections
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', function() {
+        // Update active nav item
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+
+        // Show corresponding section
+        const sectionId = this.getAttribute('data-section');
+        document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+        document.getElementById(sectionId).classList.add('active');
+
+        // Load data for the section
+        if (sectionId === 'dashboard') loadDashboardStats();
+      });
+    });
+
+    // Initialize the dashboard
+    document.addEventListener('DOMContentLoaded', () => {
+      createFloatingElements();
+      loadDashboardStats();
+    });
+  </script>
+</body>
+
+</html>
