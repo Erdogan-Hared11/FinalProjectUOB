@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true , limit:'20mb' }));
 const db = mysql.createPool({
     host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASS || 'Ufeyn__12345',
+    password: process.env.DB_PASS || '12345',
     database: process.env.DB_NAME || 'dalag_com',
     waitForConnections: true,
     connectionLimit: 10,
